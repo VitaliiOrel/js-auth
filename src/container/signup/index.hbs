@@ -1,0 +1,31 @@
+<div class="page page--background">
+    <header>
+        {{>back-button}}
+    </header>
+    <form action="" class="page__section">
+        <h1 class="page__title">Registration</h1>
+        <div class="form">
+            <div class="form__item">
+                {{>field action="signupForm.change" label="Email" type="email" name="email" placeholder="Your email"}}
+                <span class="form__error">Errrror</span>
+            </div>
+            <div class="form__item">
+                {{>field-password action="signupForm.change" label="Password" type="password" name="password"
+                placeholder="Password"}}
+                <span class="form__error">Errrror</span>
+            </div>
+            <div class="form__item">
+                {{>field-select action="signupForm.change" label="Role" name="role" placeholder="Select role"
+                list=data.role}}
+                <span name="role" class="form__error">Error</span>
+            </div>
+            <div class="form__item">
+                {{>field-checkbox action="signupForm.change" label="I agree to the terms of service" type="password"
+                name="isConfirm"}}
+                <span class="form__error">Errrror</span>
+            </div>
+        </div>
+        <button onclick="signupForm.submit()" class="button" type="button">Sign up</button>
+        <span class="alert alert--error">Wnimanie, error, time: 41:50</span>
+    </form>
+</div>
