@@ -7,12 +7,18 @@
         <div class="form">
             <div class="form__item">
                 {{>field action="signupForm.change" label="Email" type="email" name="email" placeholder="Your email"}}
-                <span class="form__error">Errrror</span>
+                <span name="email" class="form__error">Errrror</span>
             </div>
             <div class="form__item">
                 {{>field-password action="signupForm.change" label="Password" type="password" name="password"
                 placeholder="Password"}}
-                <span class="form__error">Errrror</span>
+                <span name="password" class="form__error">Errrror</span>
+            </div>
+            <div class="form__item">
+                {{>field-password action="signupForm.change" label="Confirm password" type="password"
+                name="passwordAgain"
+                placeholder="Password"}}
+                <span name="passwordAgain" class="form__error">Errrror</span>
             </div>
             <div class="form__item">
                 {{>field-select action="signupForm.change" label="Role" name="role" placeholder="Select role"
@@ -22,10 +28,10 @@
             <div class="form__item">
                 {{>field-checkbox action="signupForm.change" label="I agree to the terms of service" type="password"
                 name="isConfirm"}}
-                <span class="form__error">Errrror</span>
+                <span name="isConfirm" class="form__error">Errrror</span>
             </div>
         </div>
-        <button onclick="signupForm.submit()" class="button" type="button">Sign up</button>
-        <span class="alert alert--error">Wnimanie, error, time: 41:50</span>
+        <button onclick="signupForm.submit()" class="button button--disabled" type="button">Sign up</button>
+        <span class="alert alert--disabled">Wnimanie, error, time: 41:50</span>
     </form>
 </div>
