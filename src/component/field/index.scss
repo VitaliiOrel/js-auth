@@ -19,8 +19,9 @@
 
     font-size: 14px;
 
-    &::placeholder {
+    &:placeholder {
       color: s.color('light');
+      text-align: center;
     }
 
     color: s.color('dark');

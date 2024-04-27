@@ -1,0 +1,18 @@
+<div class="page page--background">
+    <header>
+        {{>back-button}}
+    </header>
+    <form action="" class="page__section">
+        <h1 class="page__title">Recovery password</h1>
+        <div class="form">
+
+            <div class="form__item">
+                {{>field action="recoveryForm.change" label="Email" type="email" name="email" placeholder="Your email"}}
+                <span name="email" class="form__error">Errrror</span>
+            </div>
+
+        </div>
+        <button onclick="recoveryForm.submit()" class="button button--disabled" type="button">Get code</button>
+        <span class="alert alert--disabled">Wnimanie, error, time: 41:50</span>
+    </form>
+</div>

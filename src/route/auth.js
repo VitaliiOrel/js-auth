@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const User = require('../class/user')
+const Confirm = require('../class/confirm')
 
 User.create({
   email: 'test@mail.com',
@@ -57,11 +58,19 @@ router.post('/signup', function (req, res) {
 
   if (!email || !password || !role) {
     return res.status(400).json({
-      message: 'Error, required data missing',
+      message: 'Error: missing required data',
     })
   }
 
   try {
+    const user = User.getByEmail(email)
+
+    if (user) {
+      return res.status(400).json({
+        message: 'Error: Such user already exists',
+      })
+    }
+
     User.create({ email, password, role })
 
     return res
@@ -69,10 +78,129 @@ router.post('/signup', function (req, res) {
       .json({ message: 'User registered' })
   } catch (err) {
     return res.status(400).json({
-      message: 'Error, required data missing',
+      message: 'Error: missing required data',
     })
   }
 })
+
+// ==========================================
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/recovery', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('recovery', {
+    // вказуємо назву контейнера
+    name: 'recovery',
+    // вказуємо назву компонентів
+    component: ['back-button', 'field'],
+
+    // вказуємо назву сторінки
+    title: 'Recovery page',
+    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+
+    // вказуємо дані,
+    data: {},
+  })
+})
+
+router.post('/recovery', function (req, res) {
+  const { email } = req.body
+  console.log(email)
+
+  if (!email) {
+    return res.status(400).json({
+      message: 'Error: missing required data',
+    })
+  }
+
+  try {
+    const user = User.getByEmail(email)
+
+    if (!user) {
+      return res.status(400).json({
+        message: 'Such user does not exist',
+      })
+    }
+
+    Confirm.create(email)
+
+    return res.status(200).json({
+      message: 'Code was sent',
+    })
+  } catch (err) {
+    return res.status(400).json({
+      massage: err.message,
+    })
+  }
+})
+
+// ==========================================
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/recovery-confirm', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('recovery-confirm', {
+    // вказуємо назву контейнера
+    name: 'recovery-confirm',
+    // вказуємо назву компонентів
+    component: ['back-button', 'field', 'field-password'],
+
+    // вказуємо назву сторінки
+    title: 'Recovery confirm page',
+    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+
+    // вказуємо дані,
+    data: {},
+  })
+})
+
+router.post('/recovery-confirm', function (req, res) {
+  const { password, code } = req.body
+
+  console.log('recovery-confirm: ', password, code)
+
+  if (!code || !password) {
+    return res.status(400).json({
+      message: 'Error: missing required data',
+    })
+  }
+
+  try {
+    const email = Confirm.getData(Number(code))
+
+    if (!email) {
+      return res.status(400).json({
+        message: 'Error: Invalid code',
+      })
+    }
+
+    const user = User.getByEmail(email)
+
+    if (!user) {
+      return res.status(400).json({
+        message: 'Error: User does not exist',
+      })
+    }
+
+    user.password = password
+
+    console.log('recovery-confirm: ', user)
+
+    return res.status(200).json({
+      message: 'Password has changed',
+    })
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+    })
+  }
+})
+
+// ================================================
 
 // Підключаємо роутер до бек-енду
 module.exports = router
