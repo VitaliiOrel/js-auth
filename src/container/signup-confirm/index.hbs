@@ -1,0 +1,23 @@
+<div class="page page--background">
+    <header>
+        {{>back-button}}
+    </header>
+    <form action="" class="page__section">
+        <h1 class="page__title">Email confirm</h1>
+        <p class="page__subtitle">Activate your account by entering the email code.</p>
+        <div class="form">
+            <div class="form__item">
+                {{>field action="signupConfirmForm.change" label="Code" type="number" placeholder="Enter code here"
+                name="code"}}
+                <span name="code" class="form__error">Errrror</span>
+            </div>
+
+        </div>
+        <button onclick="signupConfirmForm.submit()" class="button button--disabled" type="button">Confirm</button>
+        <span class="alert alert--disabled">Achtung, error, time: 41:50</span>
+
+        <span class="link__prefix">Lost your code? <a href="/signup-confirm" class="link" id="renew">Get a
+                new
+                one</a></span>
+    </form>
+</div>
