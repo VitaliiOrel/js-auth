@@ -1,18 +1,9 @@
-generateCode = () => {
-  const length = 6
-  const characters =
-    'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890'
-  let result = ''
+let a = 5
 
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(
-      Math.random() * characters.length,
-    )
-    result += characters[randomIndex]
-  }
-
-  return result
+try {
+  if (a < 10) throw new Error('Element is null')
+} catch (err) {
+  console.log(err.message)
 }
 
-let res = generateCode()
-console.log(res)
+console.log('true')

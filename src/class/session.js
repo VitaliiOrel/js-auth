@@ -3,6 +3,7 @@ class Session {
 
   constructor(user) {
     this.token = Session.generateCode()
+    this.date = new Date()
     this.user = {
       id: user.id,
       email: user.email,
